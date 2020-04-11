@@ -1,38 +1,36 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from scapy.all import *
 import os
 import threading
- 
-C_END     = "\033[0m"
-C_BOLD    = "\033[1m"
-C_INVERSE = "\033[7m"
- 
-C_BLACK  = "\033[30m"
-C_RED    = "\033[31m"
-C_GREEN  = "\033[32m"
-C_YELLOW = "\033[33m"
-C_BLUE   = "\033[34m"
-C_PURPLE = "\033[35m"
-C_CYAN   = "\033[36m"
-C_WHITE  = "\033[37m"
- 
-C_BGBLACK  = "\033[40m"
-C_BGRED    = "\033[41m"
-C_BGGREEN  = "\033[42m"
-C_BGYELLOW = "\033[43m"
-C_BGBLUE   = "\033[44m"
-C_BGPURPLE = "\033[45m"
-C_BGCYAN   = "\033[46m"
-C_BGWHITE  = "\033[47m" #색 / 효과
 
+C_END = "\033[0m"
+C_BOLD = "\033[1m"
+C_INVERSE = "\033[7m"
+
+C_BLACK = "\033[30m"
+C_RED = "\033[31m"
+C_GREEN = "\033[32m"
+C_YELLOW = "\033[33m"
+C_BLUE = "\033[34m"
+C_PURPLE = "\033[35m"
+C_CYAN = "\033[36m"
+C_WHITE = "\033[37m"
+
+C_BGBLACK = "\033[40m"
+C_BGRED = "\033[41m"
+C_BGGREEN = "\033[42m"
+C_BGYELLOW = "\033[43m"
+C_BGBLUE = "\033[44m"
+C_BGPURPLE = "\033[45m"
+C_BGCYAN = "\033[46m"
+C_BGWHITE = "\033[47m"  # 색 / 효과
 
 TLIST = ['타겟리스트초기화']
 
-def myip(): #내아이피 가져오기
- ifconfig = os.popen('ifconfig')
- myip = ifconfig.read()
- myip = myip.split()
- return myip[5]
+def myip():
+    myip = os.popen('ipconfig').read()
+    myip = myip.split()
+    return myip[myip.index('IPv4') + 12]
 
 def arptable(target):
  time.sleep(1)
@@ -78,9 +76,9 @@ def arpspoof(answer):
 def start():
  global TLIST
  TLIST = ['타겟리스트초기화']
- os.system('clear') 
+ os.system('cls')
  arpscan(myip())
- answer = raw_input(C_BOLD + C_RED + ' 공격: [타겟] [게이트웨이]' + C_END + '||' + C_BOLD + C_YELLOW + '다시시작: [공백]' + C_END + C_BOLD + ' 입력: ')
+ answer = input(C_BOLD + C_RED + ' 공격: [타겟] [게이트웨이]' + C_END + '||' + C_BOLD + C_YELLOW + '다시시작: [공백]' + C_END + C_BOLD + ' 입력: ')
  if answer:
   arpspoof(answer)
  else:
